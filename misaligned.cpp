@@ -70,9 +70,9 @@ void testPrintColorMap() {
 
 int main() {
     int totalPairs = printColorMap();
-    assert(totalPairs == 25 && "Test failed: Total color pairs count mismatch.");
+    assert(totalPairs == 25);
     testPrintColorMap();
-    std::cout << "All tests passed successfully!\n";
+    std::cout << "All is well (maybe!)\n";
     return 0;
 }
 
