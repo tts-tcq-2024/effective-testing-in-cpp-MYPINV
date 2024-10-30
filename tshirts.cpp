@@ -1,5 +1,6 @@
 #include <iostream>
 #include <assert.h>
+using namespace std;
 
 char size(int cms) {
     char sizeName = '\0';
@@ -19,6 +20,6 @@ int main() {
     assert(size(43) == 'L');
     assert(size(38) == 'S');
     assert(size(42) == 'L');
-    std::cout << "All is not well now\n";
+    cout << "All is not well now\n";
     return 0;
 }
