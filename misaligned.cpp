@@ -20,59 +20,57 @@
 //     return 0;
 // }
 
+
 #include <iostream>
 #include <iomanip>
 #include <sstream>
 #include <string>
-#include <cassert>
+#include <assert.h>
 
 const char* majorColors[] = {"White", "Red", "Black", "Yellow", "Violet"};
 const char* minorColors[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
 
-// Function to print the color map with color pair numbers and returns total pair count
 int printColorMap() {
-    int colorPairCount = 0;
-    for (int majorIndex = 0; majorIndex < 5; ++majorIndex) {
-        for (int minorIndex = 0; minorIndex < 5; ++minorIndex) {
-            int pairNumber = majorIndex * 5 + minorIndex;
-            std::cout << std::setw(2) << pairNumber << " | " 
-                      << std::setw(6) << majorColors[majorIndex] << " | "
-                      << std::setw(6) << minorColors[minorIndex] << "\n";
-            ++colorPairCount;
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            int pairNumber = i * 5 + j;
+            std::cout << pairNumber << " | " 
+                      << majorColors[i] << " | " 
+                      << minorColors[j] << "\n";
         }
     }
-    return colorPairCount;
+    return 25;
 }
 
-// Test function to validate printColorMap output alignment and correctness
 void testPrintColorMap() {
-    std::ostringstream capturedOutput;
-    std::streambuf* originalCoutBuffer = std::cout.rdbuf();  // Backup original cout buffer
-    std::cout.rdbuf(capturedOutput.rdbuf());                 // Redirect cout to capturedOutput
-    
-    printColorMap();                                         // Call function to capture its output
-    std::cout.rdbuf(originalCoutBuffer);                     // Restore original cout buffer
+    std::ostringstream actualOutput;
+    std::streambuf* originalCoutBuffer = std::cout.rdbuf();
+    std::cout.rdbuf(actualOutput.rdbuf());
 
-    // Expected output stringstream
+    printColorMap();
+    
+    std::cout.rdbuf(originalCoutBuffer);
+
     std::ostringstream expectedOutput;
-    for (int majorIndex = 0; majorIndex < 5; ++majorIndex) {
-        for (int minorIndex = 0; minorIndex < 5; ++minorIndex) {
-            int pairNumber = majorIndex * 5 + minorIndex;
-            expectedOutput << std::setw(2) << pairNumber << " | "
-                           << std::setw(6) << majorColors[majorIndex] << " | "
-                           << std::setw(6) << minorColors[minorIndex] << "\n";
+    for (int i = 0; i < 5; ++i) {
+        for (int j = 0; j < 5; ++j) {
+            int pairNumber = i * 5 + j;
+            expectedOutput << std::setw(2) << pairNumber << " | " 
+                           << std::setw(6) << majorColors[i] << " | " 
+                           << std::setw(6) << minorColors[j] << "\n";
         }
     }
-
-    // Check if captured output matches the expected output
-    assert(capturedOutput.str() == expectedOutput.str() && "Test failed: Output alignment or content mismatch.");
+   
+    // Test if the output matches the expected output
+    assert(actualOutput.str() == expectedOutput.str() && "Test failed: Output is not correctly aligned or mapped.");
 }
 
 int main() {
-    int totalPairs = printColorMap();
-    assert(totalPairs == 25);
+    int result = printColorMap();
+    assert(result == 25);
     testPrintColorMap();
     std::cout << "All is well (maybe!)\n";
     return 0;
 }
+
 
